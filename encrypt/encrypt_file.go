@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-//set your public key path
+//set your public key file path
 const pubKey = "/Users/example/public"
 //set the path of file which you are going to encrypt
 const fileToEnc = "/Users/example/pgp_file"

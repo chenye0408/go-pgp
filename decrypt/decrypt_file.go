@@ -11,7 +11,7 @@ import (
 )
 
 //set your private key here
-const priKey = ""
+const priKey = "-----BEGIN PGP PRIVATE KEY BLOCK----- ... -----END PGP PRIVATE KEY BLOCK-----\n"
 //set the path of file which you are going to decrypt
 const fileToDec = "/Users/example/pgp_file.pgp"
 
