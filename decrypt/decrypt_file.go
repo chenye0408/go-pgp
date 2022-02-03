@@ -42,9 +42,29 @@ func main() {
 	}
 }
 
+//if the format of encrypted file is binary, use this method to decrypt
 func decrypt(entities []*openpgp.Entity, r io.Reader, w io.Writer) error {
 	var entityList openpgp.EntityList = entities
 	md, err := openpgp.ReadMessage(r, entityList, nil, nil)
+	if err != nil {
+		panic(err)
+	}
+	if _, err := io.Copy(w, md.UnverifiedBody); err != nil {
+		return err
+	}
+	return nil
+}
+
+//if the format of encrypted file is armored, use this method to decrypt
+func decryptArmored(entities []*openpgp.Entity, r io.Reader, w io.Writer) error {
+	var entityList openpgp.EntityList = entities
+
+	block, err := armor.Decode(r)
+	if err != nil {
+		return fmt.Errorf("error reading OpenPGP Armor: %s", err)
+	}
+
+	md, err := openpgp.ReadMessage(block.Body, entityList, nil, nil)
 	if err != nil {
 		panic(err)
 	}
